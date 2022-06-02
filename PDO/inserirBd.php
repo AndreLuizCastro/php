@@ -7,7 +7,7 @@ $conn = new PDO("sqlsrv:Database=dbphp7;server=localhost\MSSQLSERVER02;Connectio
 
 
 $stn=$conn->prepare("INSERT into tb_usuario (deslogin, dessenha) values (:LOGIN, :PASSWORD)");
-$login= "eu";
+$login= "andre";
 $password="81418950";
 $stn->bindParam(":LOGIN",$login );
 $stn->bindParam(":PASSWORD",$password );

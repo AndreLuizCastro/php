@@ -100,6 +100,42 @@ public function loadById($id){
     }
 
 }
+public static function list()
+{
+    $sql = new Sql();
+return $sql->select ("SELECT * FROM tb_usuario order by deslogin;");
+}
+
+
+public static function procura ($login)
+{
+    $sql = new Sql();
+return $sql->select("SELECT * FROM tb_usuario WHERE deslogin like :PROCURA ORDER BY deslogin", ARRAY(
+    ':PROCURA'=>"%".$login."%"));
+}
+
+public function login ($login, $senha)
+{
+    $sql = new Sql();
+    $resultado = $sql->select("SELECT * FROM tb_usuario WHERE deslogin = :LOGIN and dessenha = :SENHA",
+    array(":LOGIN"=>$login,":SENHA"=>$senha));
+
+    if(count($resultado>0))
+    {
+        $row= $resultado[0]; 
+        
+        $this->setIdusuario($row['idusuario']);
+        $this->setDeslogin($row['deslogin']);
+        $this->setDessenha($row['dessenha']);
+        $this->setDtcadastro(new DateTime($row['dtcadastro']));
+    }
+    else
+    {
+throw new exception("login ou senha invalidos");
+    }
+    
+}
+
 public function __toString(){
 
     return json_encode(array(
