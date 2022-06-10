@@ -19,7 +19,14 @@ require_once("config.php");
 //echo json_encode($procura);
 
 //login e senha
-$usuario = new USUARIO();
-$usuario->login("andre","81418950");
-echo $usuario;
+//$usuario = new USUARIO();
+//$usuario->login("andre","81418950");
+//echo $usuario;
+
+$aluno = new Usuario("mauricio", "124578369");
+
+$aluno->insertBD();
+
+
+echo $aluno;
 ?>

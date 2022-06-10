@@ -6,8 +6,8 @@ class Sql extends PDO {
 
     public function __construct() {
 
-        $this->conn = new PDO("sqlsrv:Database=dbphp7;server=localhost\MSSQLSERVER02;ConnectionPooling=0", "sa", "96654117and");
-
+      //  $this->conn = new PDO("sqlsrv:Database=dbphp7;server=localhost\MSSQLSERVER02;ConnectionPooling=0", "sa", "96654117and");
+         $this->conn = new PDO("mysql:host=localhost;dbname=dbphp7", "root", "");
     }
 
     private function setParams($statement, $parameters = array()) {
@@ -46,6 +46,7 @@ class Sql extends PDO {
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     }
+
 
 }
 

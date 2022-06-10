@@ -90,12 +90,7 @@ public function loadById($id){
 
     if (count($results) > 0) {
 
-        $row = $results[0];
-
-        $this->setIdusuario($row['idusuario']);
-        $this->setDeslogin($row['deslogin']);
-        $this->setDessenha($row['dessenha']);
-        $this->setDtcadastro(new DateTime($row['dtcadastro']));
+        $this->setDados($results[0]);
 
     }
 
@@ -122,18 +117,39 @@ public function login ($login, $senha)
 
     if(count($resultado>0))
     {
-        $row= $resultado[0]; 
-        
-        $this->setIdusuario($row['idusuario']);
-        $this->setDeslogin($row['deslogin']);
-        $this->setDessenha($row['dessenha']);
-        $this->setDtcadastro(new DateTime($row['dtcadastro']));
+        $this->setDados($results[0]);
     }
     else
     {
 throw new exception("login ou senha invalidos");
     }
     
+}
+public function setDados($data)
+{
+    $this->setIdusuario($data['idusuario']);
+    $this->setDeslogin($data['deslogin']);
+    $this->setDessenha($data['dessenha']);
+    $this->setDtcadastro(new DateTime($data['dtcadastro']));
+}
+public function insertBD()
+{
+    $sql =new Sql();
+    $results = $sql-> select ("CALL sp_usuarios_insert(:LOGIN, :SENHA)", array
+    (
+        ':LOGIN'=>$this->getDeslogin(),
+        ':SENHA'=>$this->getDessenha()
+    ));
+    if(count($results)>0)
+    {
+        $this->setDados($results[0]);
+    }
+}
+public function __construct($login = "", $password = ""){
+
+    $this->setDeslogin($login);
+    $this->setDessenha($password);
+
 }
 
 public function __toString(){
