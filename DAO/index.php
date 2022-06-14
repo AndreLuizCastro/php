@@ -23,10 +23,13 @@ require_once("config.php");
 //$usuario->login("andre","81418950");
 //echo $usuario;
 
-$aluno = new Usuario("mauricio", "124578369");
+//criando novo usuario
+//$aluno = new Usuario("mauricio", "124578369");
+//$aluno->insertBD();
+//echo $aluno;
 
-$aluno->insertBD();
-
-
-echo $aluno;
+$usuario = new usuario();
+$usuario->loadbyId(4);
+$usuario->alterar("andre","784512");
+echo $usuario;
 ?>
