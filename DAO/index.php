@@ -28,8 +28,15 @@ require_once("config.php");
 //$aluno->insertBD();
 //echo $aluno;
 
+//alterar usuario
+//$usuario = new usuario();
+//$usuario->loadbyId(4);
+//$usuario->alterar("andre","784512");
+//echo $usuario;
+
+//deletar usuario
 $usuario = new usuario();
-$usuario->loadbyId(4);
-$usuario->alterar("andre","784512");
-echo $usuario;
+$usuario->loadbyId(5);
+$usuario->delete();
+echo $usuario
 ?>

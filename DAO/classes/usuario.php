@@ -164,6 +164,18 @@ public function alterar ($LOGIN,$PASSWORD)
     ));
 }
 
+public function delete()
+{
+    $sql = new sql();
+    $sql-> query("DELETE FROM tb_usuario where idusuario =:ID", array(
+            ':ID'=>$this-> getIdusuario()
+    ));
+    $this->setIdusuario(0);
+    $this->setDeslogin("");
+    $this->setDessenha("");
+    $this->setDtcadastro(new DATETIME());
+}
+
 public function __toString(){
 
     return json_encode(array(
