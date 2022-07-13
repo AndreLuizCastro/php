@@ -1,6 +1,37 @@
 <?php
 require_once("vendor/autoload.php");
 
+use Rain\Tpl;
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+
+// config
+$config = array(
+    "tpl_dir"       => "tpl/",
+    "cache_dir"     => "cache/",
+    "debug"         => true, // set to false to improve the speed
+);
+
+Tpl::configure( $config );
+
+
+// Add PathReplace plugin (necessary to load the CSS with path replace)
+Tpl::registerPlugin( new Tpl\Plugin\PathReplace() );
+
+
+// create the Tpl object
+$tpl = new Tpl;
+
+// assign a variable
+$tpl->assign( "name", "hello there" );
+$tpl->assign( "name2", "Obi Wan Kenoby" );
+
+// assign an array
+//$tpl->assign( "week", array( "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" ) );
+
+// draw the template
+$html = $tpl->draw( "index", true );
+
 
 /**
  * This example shows settings to use when sending via Google's Gmail servers.
@@ -10,10 +41,8 @@ require_once("vendor/autoload.php");
  */
 
 //Import PHPMailer classes into the global namespace
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\SMTP;
 
-require '../vendor/autoload.php';
+
 
 //Create a new PHPMailer instance
 $mail = new PHPMailer();
@@ -47,30 +76,30 @@ $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
 $mail->SMTPAuth = true;
 
 //Username to use for SMTP authentication - use full email address for gmail
-$mail->Username = 'username@gmail.com';
+$mail->Username = 'Email';
 
 //Password to use for SMTP authentication
-$mail->Password = 'yourpassword';
+$mail->Password = 'senha';
 
 //Set who the message is to be sent from
 //Note that with gmail you can only use your account address (same as `Username`)
 //or predefined aliases that you have configured within your account.
 //Do not use user-submitted addresses in here
-$mail->setFrom('from@example.com', 'First Last');
+$mail->setFrom('email', 'senha');
 
 //Set an alternative reply-to address
 //This is a good place to put user-submitted addresses
-$mail->addReplyTo('replyto@example.com', 'First Last');
+//$mail->addReplyTo('replyto@example.com', 'First Last');
 
 //Set who the message is to be sent to
-$mail->addAddress('whoto@example.com', 'John Doe');
+$mail->addAddress('destinatario', 'nome');
 
 //Set the subject line
-$mail->Subject = 'PHPMailer GMail SMTP test';
+$mail->Subject = 'teste';
 
 //Read an HTML message body from an external file, convert referenced images to embedded,
 //convert HTML into a basic plain-text alternative body
-$mail->msgHTML(file_get_contents('contents.html'), __DIR__);
+$mail->msgHTML($html);
 
 //Replace the plain text body with one created manually
 $mail->AltBody = 'This is a plain-text message body';
@@ -108,4 +137,5 @@ function save_mail($mail)
 
     return $result;
 }
+
 ?>
